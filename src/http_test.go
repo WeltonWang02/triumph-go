@@ -35,6 +35,11 @@ func TestBuyHandler(t *testing.T) {
 			expectedCode: fiber.StatusOK,
 		},
 		{
+			description:  "Valid request",
+			query:        "/buy?amount=3&symbol=BTC-USD",
+			expectedCode: fiber.StatusOK,
+		},
+		{
 			description:  "Invalid request",
 			query:        "/buy?amount=invalid&symbol=BTC-USD",
 			expectedCode: fiber.StatusBadRequest,
@@ -54,7 +59,7 @@ func TestBuyHandler(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
 			req := httptest.NewRequest("GET", test.query, nil)
-			resp, _ := app.Test(req, 1)
+			resp, _ := app.Test(req)
 			// Verify, if the status code is as expected
 			assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
 			// Additional checks (like response body content) can be added here
@@ -77,6 +82,11 @@ func TestSellHandler(t *testing.T) {
 			expectedCode: fiber.StatusOK,
 		},
 		{
+			description:  "Valid request",
+			query:        "/sell?amount=3&symbol=BTC-USD",
+			expectedCode: fiber.StatusOK,
+		},
+		{
 			description:  "Invalid request",
 			query:        "/sell?amount=invalid&symbol=BTC-USD",
 			expectedCode: fiber.StatusBadRequest,
@@ -96,8 +106,9 @@ func TestSellHandler(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
 			req := httptest.NewRequest("GET", test.query, nil)
-			resp, _ := app.Test(req, 1)
-			_ = resp
+			resp, _ := app.Test(req)
+
+			assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
 			// Verify, if the status code is as expected
 			// assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
 

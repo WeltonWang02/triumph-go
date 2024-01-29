@@ -128,9 +128,6 @@ func getBookData(product string, exchange string) (OrderBook, error) {
 			exists = true
 			// Optional here as there is only one key-value pair
 		}
-
-		fmt.Printf("\n%s", url)
-		fmt.Printf("\n%s", response)
 		if !exists {
 			return OrderBook{}, fmt.Errorf("product data not found in response")
 		}

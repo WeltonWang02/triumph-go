@@ -13,7 +13,7 @@ func Sell(c *fiber.Ctx) error {
 
 	requestValid := services.ValidateRequest(amount, symbol)
 	if requestValid != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": requestValid.Error(),
 		})
@@ -21,7 +21,7 @@ func Sell(c *fiber.Ctx) error {
 	// Call service
 	order, err := services.ExecuteOrder(amount, symbol, "sell")
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": err.Error(),
 		})
