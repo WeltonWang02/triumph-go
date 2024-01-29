@@ -46,6 +46,11 @@ func TestBuyHandler(t *testing.T) {
 		},
 		{
 			description:  "Invalid request",
+			query:        "/buy?amount=1&symbol=BTPO-USD",
+			expectedCode: fiber.StatusBadRequest,
+		},
+		{
+			description:  "Invalid request",
 			query:        "/buy?symbol=BTC-USD",
 			expectedCode: fiber.StatusBadRequest,
 		},
@@ -89,6 +94,11 @@ func TestSellHandler(t *testing.T) {
 		{
 			description:  "Invalid request",
 			query:        "/sell?amount=invalid&symbol=BTC-USD",
+			expectedCode: fiber.StatusBadRequest,
+		},
+		{
+			description:  "Invalid request",
+			query:        "/buy?amount=1&symbol=BTPO-USD",
 			expectedCode: fiber.StatusBadRequest,
 		},
 		{
