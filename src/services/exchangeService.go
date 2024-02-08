@@ -3,7 +3,7 @@ package services
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"sort"
 	"strconv"
@@ -159,7 +159,7 @@ func sendHTTPrequest(url string) (string, error) {
 		return "", fmt.Errorf("received non-200 status code: %d", res.StatusCode)
 	}
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return "", err
 	}
