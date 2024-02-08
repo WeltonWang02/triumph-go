@@ -1,34 +1,33 @@
-package controllers
+package sell
 
 import (
-	"triumph_intern/enum"
 	"triumph_intern/services"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func Buy(c *fiber.Ctx) error {
+func Sell(c *fiber.Ctx) error {
 	// Extract query parameters
 	amount := c.Query("amount")
 	symbol := c.Query("symbol")
 
 	if requestValid := services.ValidateRequest(amount, symbol); requestValid != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status":  enum.Error,
+			"status":  "error",
 			"message": requestValid.Error(),
 		})
 	}
 	// Call service
-	order, err := services.ExecuteOrder(amount, symbol, "buy")
+	order, err := services.ExecuteOrder(amount, symbol, "sell")
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status":  enum.Error,
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status":  "error",
 			"message": err.Error(),
 		})
 	}
 
 	return c.JSON(fiber.Map{
-		"status": enum.Success,
+		"status": "success",
 		"order":  order,
 	})
 }

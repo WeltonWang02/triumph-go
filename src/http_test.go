@@ -3,7 +3,8 @@ package main
 import (
 	"net/http/httptest"
 	"testing"
-	"triumph_intern/controllers"
+	"triumph_intern/controllers/buy"
+	"triumph_intern/controllers/sell"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert" // add Testify package
@@ -14,8 +15,8 @@ func setupApp() *fiber.App {
 	app := fiber.New()
 
 	// Define routes
-	app.Get("/buy", controllers.Buy)   // Adjust as per your package and method names
-	app.Get("/sell", controllers.Sell) // Adjust as per your package and method names
+	app.Get("/buy", buy.Buy)    // Adjust as per your package and method names
+	app.Get("/sell", sell.Sell) // Adjust as per your package and method names
 
 	return app
 }
