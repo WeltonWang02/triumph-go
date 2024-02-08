@@ -11,11 +11,7 @@ go build
 
 # Run
 
-Run either the pre-built binary found in /build, or the executable from the commands above
-
-```
-./triumph_intern
-```
+Run the executable from the commands above
 
 # Test
 
