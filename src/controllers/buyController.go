@@ -21,7 +21,7 @@ func Buy(c *fiber.Ctx) error {
 	// Call service
 	order, err := services.ExecuteOrder(amount, symbol, "buy")
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  enum.Error,
 			"message": err.Error(),
 		})
