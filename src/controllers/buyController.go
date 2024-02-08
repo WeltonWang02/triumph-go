@@ -11,8 +11,7 @@ func Buy(c *fiber.Ctx) error {
 	amount := c.Query("amount")
 	symbol := c.Query("symbol")
 
-	requestValid := services.ValidateRequest(amount, symbol)
-	if requestValid != nil {
+	if requestValid := services.ValidateRequest(amount, symbol); requestValid != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": requestValid.Error(),
