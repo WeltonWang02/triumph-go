@@ -26,16 +26,16 @@ type PriceInfo struct {
 	Exchange string
 }
 
-func ExecuteOrder(quantity string, symbol string, action string) (models.Order, error) {
+func ExecuteOrder(order models.OrderRequest, action string) (models.Order, error) {
 	// Logic to choose the best exchange and execute the order
 	// Fetch data from APIs, calculate the best price
 	// Mock response for demonstration
-	amount, err := strconv.ParseFloat(quantity, 64)
+	amount, err := strconv.ParseFloat(order.Amount, 64)
 	if err != nil {
 		return models.Order{}, fmt.Errorf("Invalid amount of currency: %w", err)
 	}
 
-	bestPrice, err := getBestPrice(amount, symbol, action)
+	bestPrice, err := getBestPrice(amount, order.Symbol, action)
 	if err != nil {
 		return models.Order{}, fmt.Errorf("Error fetching best price: %w", err)
 	}
